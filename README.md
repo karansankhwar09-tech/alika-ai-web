@@ -2,7 +2,7 @@
 
 Official web release hub for **Alika AI Desktop**, an autonomous multimodal voice and vision AI companion powered by direct Gemini Live bidirectional WebSocket engine.
 
-🔗 **Live Website:** [alika-web-olive.vercel.app](https://alika-web-olive.vercel.app)
+🔗 **Live Website:** [alika-ai-web-olive.vercel.app](https://alika-ai-web-olive.vercel.app)
 
 ---
 
