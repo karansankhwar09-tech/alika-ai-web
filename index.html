@@ -242,6 +242,333 @@
       <!-- 3D TILT LAPTOP SHOWCASE (VIDEO + REAL FALLBACK) -->
       <div class="mt-16 max-w-5xl mx-auto perspective-1000">
         <div id="tiltCard" class="glass-card rounded-3xl p-3 sm:p-5 border border-white/15 glow-cyan transition-transform duration-200 ease-out">
+
+          <!-- ================= ALIKA LIVE INTERACTIVE DEMO ================= -->
+<section id="alika-live-demo" class="alika-demo-wrapper">
+  <div class="demo-box">
+    <div class="demo-badge">LIVE BROWSER SIMULATOR</div>
+    <h2>Try <span>Alika AI</span> Live</h2>
+    <p>Talk or click a command below to experience Alika's neural voice response instantly.</p>
+
+    <!-- AI Voice Orb -->
+    <div class="demo-orb-wrap">
+      <div class="demo-orb" id="alikaDemoOrb">
+        <div class="orb-core"></div>
+      </div>
+      <div class="demo-status" id="alikaStatus">READY // CLICK A COMMAND OR SPEAK</div>
+    </div>
+
+    <!-- Live Output Screen -->
+    <div class="demo-terminal">
+      <div class="term-header">
+        <span class="dot d-red"></span>
+        <span class="dot d-yellow"></span>
+        <span class="dot d-green"></span>
+        <span class="t-name">alika_voice_stream.exe</span>
+      </div>
+      <div class="term-body" id="demoFeed">
+        <div class="feed-msg sys">[SYSTEM]: Alika Core active. Try asking something!</div>
+      </div>
+    </div>
+
+    <!-- Quick Action Buttons -->
+    <div class="demo-quick-btns">
+      <button type="button" class="q-btn" onclick="triggerAlika('Who are you?')">🤖 Who are you?</button>
+      <button type="button" class="q-btn" onclick="triggerAlika('What tasks can you automate?')">⚡ What can you do?</button>
+      <button type="button" class="q-btn" onclick="triggerAlika('Run system diagnostics.')">🛡️ Run Diagnostic</button>
+      <button type="button" class="q-btn" onclick="triggerAlika('Give me a quick productivity tip.')">💡 Quick Tip</button>
+    </div>
+
+    <!-- User Input Field & Mic -->
+    <div class="demo-input-row">
+      <button type="button" class="mic-btn" id="voiceMicBtn" onclick="listenToUser()" title="Speak with mic">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+          <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+        </svg>
+      </button>
+      <input type="text" id="userDemoText" placeholder="Ask Alika something..." onkeydown="if(event.key==='Enter') sendUserQuery()" />
+      <button type="button" class="send-btn" onclick="sendUserQuery()">RUN</button>
+    </div>
+  </div>
+</section>
+
+<style>
+.alika-demo-wrapper {
+  max-width: 850px;
+  margin: 50px auto;
+  padding: 0 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.demo-box {
+  background: rgba(13, 19, 36, 0.9);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 20px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 240, 255, 0.05);
+}
+.demo-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #00f0ff;
+  background: rgba(0, 240, 255, 0.1);
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  margin-bottom: 12px;
+}
+.demo-box h2 {
+  font-size: 28px;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+.demo-box h2 span {
+  color: #00f0ff;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+}
+.demo-box p {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 0 auto 25px auto;
+  max-width: 500px;
+}
+
+/* AI Orb */
+.demo-orb-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.demo-orb {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00f0ff 0%, #7928ca 75%);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.demo-orb.pulsing {
+  animation: orbPulse 0.9s infinite alternate ease-in-out;
+}
+.orb-core {
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border-radius: 50%;
+  filter: blur(4px);
+  opacity: 0.85;
+}
+@keyframes orbPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 20px rgba(0, 240, 255, 0.5); }
+  100% { transform: scale(1.15); box-shadow: 0 0 45px rgba(255, 0, 128, 0.8); }
+}
+.demo-status {
+  font-family: monospace;
+  font-size: 11px;
+  color: #00f0ff;
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+
+/* Terminal Feed */
+.demo-terminal {
+  background: rgba(5, 8, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  text-align: left;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.term-header {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dot { width: 9px; height: 9px; border-radius: 50%; }
+.d-red { background: #ff5f56; }
+.d-yellow { background: #ffbd2e; }
+.d-green { background: #27c93f; }
+.t-name { font-size: 11px; font-family: monospace; color: #64748b; margin-left: 6px; }
+.term-body {
+  padding: 12px 14px;
+  height: 100px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.feed-msg.user { color: #38bdf8; }
+.feed-msg.alika { color: #c084fc; }
+.feed-msg.sys { color: #64748b; }
+
+/* Quick buttons */
+.demo-quick-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.q-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  color: #e2e8f0;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.q-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00f0ff;
+}
+
+/* Input row */
+.demo-input-row {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px;
+  border-radius: 12px;
+}
+.mic-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+.mic-btn.active { color: #ff0055; }
+.demo-input-row input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 13px;
+}
+.send-btn {
+  background: linear-gradient(135deg, #00f0ff, #7928ca);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>
+
+<script>
+const alikaBrain = {
+  "who are you?": "Hello! I am Alika, your personal AI desktop companion. I assist with voice automation, system control, and fast workflow execution.",
+  "what can you do?": "I can launch your apps, automate desktop actions, manage notes, fetch quick web answers, and respond in real-time through voice.",
+  "run diagnostic": "All systems nominal! Neural audio engine online, low-latency stream active, zero errors detected.",
+  "productivity tip": "Tip: Automate repetitive tasks with voice hotkeys so you can focus 100% on building high-value projects!"
+};
+
+function alikaSpeak(text) {
+  const orb = document.getElementById("alikaDemoOrb");
+  const status = document.getElementById("alikaStatus");
+
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.pitch = 1.1;
+    utt.rate = 1.0;
+
+    orb.classList.add("pulsing");
+    status.innerText = "ALIKA IS SPEAKING...";
+
+    utt.onend = () => {
+      orb.classList.remove("pulsing");
+      status.innerText = "READY // CLICK A COMMAND OR SPEAK";
+    };
+
+    window.speechSynthesis.speak(utt);
+  }
+}
+
+function addFeed(sender, text, cls) {
+  const feed = document.getElementById("demoFeed");
+  const el = document.createElement("div");
+  el.className = "feed-msg " + cls;
+  el.innerHTML = `<strong>[${sender}]:</strong> ${text}`;
+  feed.appendChild(el);
+  feed.scrollTop = feed.scrollHeight;
+}
+
+function processAlika(msg) {
+  addFeed("USER", msg, "user");
+  const lower = msg.toLowerCase();
+  let reply = "I heard: \"" + msg + "\". In the full Alika app, I execute this directly on your OS!";
+
+  for (let k in alikaBrain) {
+    if (lower.includes(k) || k.includes(lower)) {
+      reply = alikaBrain[k];
+      break;
+    }
+  }
+
+  setTimeout(() => {
+    addFeed("ALIKA", reply, "alika");
+    alikaSpeak(reply);
+  }, 350);
+}
+
+function triggerAlika(text) {
+  document.getElementById("userDemoText").value = "";
+  processAlika(text);
+}
+
+function sendUserQuery() {
+  const input = document.getElementById("userDemoText");
+  const val = input.value.trim();
+  if (!val) return;
+  input.value = "";
+  processAlika(val);
+}
+
+function listenToUser() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    alert("Voice input is not supported on this browser. Try Chrome or Edge!");
+    return;
+  }
+  const mic = new SR();
+  mic.lang = 'en-US';
+  const micBtn = document.getElementById("voiceMicBtn");
+  micBtn.classList.add("active");
+  document.getElementById("alikaStatus").innerText = "LISTENING... SPEAK NOW";
+
+  mic.onresult = (e) => {
+    const text = e.results[0][0].transcript;
+    processAlika(text);
+  };
+  mic.onend = () => {
+    micBtn.classList.remove("active");
+  };
+  mic.start();
+}
+</script>
+<!-- ================= END ALIKA LIVE DEMO ================= -->
           
           <!-- Mockup Window Bar -->
           <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 mb-3 bg-slate-950/60 rounded-xl">
