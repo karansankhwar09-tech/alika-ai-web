@@ -10,6 +10,7 @@
 
   gtag('config', 'G-2N5356B493');
 </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alika AI — Smart Voice Assistant for Mobile & Desktop</title>
@@ -1127,5 +1128,122 @@ renderComments();
   }
 }
 </style>
+  <script>
+  const SUPABASE_URL = 'https://ncdgqnfqckgrznmjyrdx.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_u_o1bVc5B5fjB1QEWykoig_2TDQbPwn'; // 
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let currentCategory = 'All';
+
+  async function loadThreads() {
+    const listContainer = document.getElementById('comments-tree');
+    const counter = document.getElementById('total-threads');
+    if (!listContainer) return;
+
+    let query = supabaseClient.from('threads').select('*').order('created_at', { ascending: false });
+    if (currentCategory !== 'All') {
+      query = query.eq('category', currentCategory);
+    }
+
+    const { data: threads, error } = await query;
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    if (counter) counter.innerText = `${threads.length} Feedbacks`;
+
+    if (!threads || threads.length === 0) {
+      listContainer.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; font-size:14px;">No transmissions found. Start the first thread!</div>`;
+      return;
+    }
+
+    listContainer.innerHTML = '';
+    for (const thread of threads) {
+      const { data: replies } = await supabaseClient.from('replies').select('*').eq('thread_id', thread.id).order('created_at', { ascending: true });
+
+      let repliesHtml = '';
+      if (replies && replies.length > 0) {
+        repliesHtml = replies.map(r => `
+          <div style="margin-left:14px; margin-top:8px; padding:8px 12px; border-left:2px solid #06b6d4; background:rgba(15,23,42,0.6); border-radius:6px; font-size:12px; color:#cbd5e1;">
+            <strong style="color:#22d3ee;">${r.author}:</strong> ${r.reply_text}
+          </div>
+        `).join('');
+      }
+
+      const card = document.createElement('div');
+      card.style = "background:rgba(15,23,42,0.7); border:1px solid #1e293b; border-radius:12px; padding:16px; margin-bottom:14px;";
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-weight:600; color:#38bdf8; font-size:13px;">${thread.name}</span>
+          <span style="background:rgba(8,145,178,0.2); border:1px solid rgba(6,182,212,0.3); color:#22d3ee; padding:2px 8px; border-radius:4px; font-size:10px; text-transform:uppercase;">${thread.category}</span>
+        </div>
+        <p style="color:#f1f5f9; font-size:14px; line-height:1.5; margin:0 0 12px 0;">${thread.message}</p>
+        
+        <div style="border-top:1px solid rgba(51,65,85,0.4); padding-top:10px;">
+          ${repliesHtml}
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <input type="text" id="reply-input-${thread.id}" placeholder="Write a reply..." style="flex:1; background:#020617; border:1px solid #334155; border-radius:6px; padding:6px 10px; font-size:12px; color:#fff; outline:none;">
+            <button onclick="submitReply('${thread.id}')" style="background:#0891b2; color:#fff; border:none; border-radius:6px; padding:6px 14px; font-size:12px; cursor:pointer; font-weight:500;">Reply</button>
+          </div>
+        </div>
+      `;
+      listContainer.appendChild(card);
+    }
+  }
+
+  async function submitRootFeedback() {
+    const nameInput = document.getElementById('fb-name');
+    const tagInput = document.getElementById('fb-tag');
+    const contentInput = document.getElementById('fb-content');
+
+    const name = nameInput?.value.trim();
+    const message = contentInput?.value.trim();
+    const category = tagInput?.value || 'General';
+
+    if (!name || !message) {
+      alert('Please fill out both Name and Message fields.');
+      return;
+    }
+
+    const { error } = await supabaseClient.from('threads').insert([{ name, category, message }]);
+    if (error) {
+      alert('Error transmitting feedback: ' + error.message);
+    } else {
+      contentInput.value = '';
+      loadThreads();
+    }
+  }
+
+  async function submitReply(threadId) {
+    const input = document.getElementById(`reply-input-${threadId}`);
+    if (!input || !input.value.trim()) return;
+
+    const author = prompt("Your Name / Alias to reply:", "Karan (Admin)") || "Community Member";
+
+    const { error } = await supabaseClient.from('replies').insert([{
+      thread_id: threadId,
+      author: author,
+      reply_text: input.value.trim()
+    }]);
+
+    if (!error) {
+      input.value = '';
+      loadThreads();
+    } else {
+      alert('Error posting reply: ' + error.message);
+    }
+  }
+
+  function filterComments(cat) {
+    currentCategory = cat;
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.innerText.toLowerCase().includes(cat.toLowerCase()));
+    });
+    loadThreads();
+  }
+
+  document.addEventListener('DOMContentLoaded', loadThreads);
+</script>
 </body>
 </html>
