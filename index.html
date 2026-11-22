@@ -1,17 +1,36 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alika AI Desktop â€” Autonomous Voice & Vision Companion</title>
+  <title>Alika AI Desktop — Autonomous Voice & Vision Companion</title>
   
   <meta name="description" content="Alika AI Desktop: Real-time Multimodal Voice & Vision Companion powered by Gemini Live WebSockets. Developed by Karan.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ðŸ’ </text></svg>">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="canonical" href="https://alika-ai.vercel.app/">
+  <meta name="theme-color" content="#030712">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alika-ai.vercel.app/">
+  <meta property="og:title" content="Alika AI Desktop — Autonomous Voice & Vision Companion">
+  <meta property="og:description" content="Real-time Multimodal Voice & Vision AI Companion powered by Gemini Live WebSockets. Windows Standalone with private BYOK architecture.">
+  <meta property="og:image" content="https://alika-ai.vercel.app/assets/step5.png">
+  <meta property="og:site_name" content="Alika AI">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://alika-ai.vercel.app/">
+  <meta name="twitter:title" content="Alika AI Desktop — Autonomous Voice & Vision Companion">
+  <meta name="twitter:description" content="Real-time Multimodal Voice & Vision AI Companion powered by Gemini Live WebSockets. Windows Standalone with private BYOK architecture.">
+  <meta name="twitter:image" content="https://alika-ai.vercel.app/assets/step5.png">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Icons (Pinned exact version) -->
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   
   <!-- Modern Tech Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,85 +38,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            brand: {
-              cyan: '#06b6d4',
-              teal: '#14b8a6',
-              blue: '#3b82f6',
-              purple: '#a855f7',
-              dark: '#030712',
-            }
-          },
-          animation: {
-            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
-            'float-slow': 'floatSlow 7s ease-in-out infinite',
-          },
-          keyframes: {
-            glowPulse: {
-              '0%, 100%': { opacity: '0.4' },
-              '50%': { opacity: '0.9' },
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
             },
-            floatSlow: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-12px)' },
+            colors: {
+              brand: {
+                cyan: '#06b6d4',
+                teal: '#14b8a6',
+                blue: '#3b82f6',
+                indigo: '#6366f1',
+                dark: '#030712',
+              }
             }
           }
         }
-      }
+      };
     }
   </script>
 
-  <style>
-    body {
-      background-color: #030712;
-      color: #f1f5f9;
-      overflow-x: hidden;
-    }
-    .cyber-grid {
-      background-size: 45px 45px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-    }
-    .glass-nav {
-      background: rgba(3, 7, 18, 0.82);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    }
-    .glass-card {
-      background: rgba(11, 18, 33, 0.65);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-    }
-    .glow-cyan {
-      box-shadow: 0 0 50px rgba(6, 182, 212, 0.28);
-    }
-    .glow-btn {
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
-    }
-    .glow-btn:hover {
-      box-shadow: 0 0 50px rgba(6, 182, 212, 0.85);
-    }
-    @keyframes wave {
-      0%, 100% { height: 6px; }
-      50% { height: 24px; }
-    }
-    .wave-bar:nth-child(1) { animation: wave 1.1s ease-in-out infinite 0.1s; }
-    .wave-bar:nth-child(2) { animation: wave 1.1s ease-in-out infinite 0.3s; }
-    .wave-bar:nth-child(3) { animation: wave 1.1s ease-in-out infinite 0.2s; }
-    .wave-bar:nth-child(4) { animation: wave 1.1s ease-in-out infinite 0.4s; }
-  </style>
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/feedback.css">
 </head>
 <body class="cyber-grid antialiased selection:bg-cyan-500 selection:text-black">
 
@@ -133,10 +100,11 @@
         <a href="#capabilities" class="hover:text-cyan-400 transition">Capabilities</a>
         <a href="#setup" class="hover:text-cyan-400 transition">Setup Guide</a>
         <a href="https://github.com/karansankhwar09-tech/Alika-ai-releases/releases/download/v1.0.1/Alika.AI.Setup.exe" class="hover:text-cyan-400 transition">Download</a>
-        <a href="#copyright" class="hover:text-rose-400 transition">Copyright Shield</a>
+        <a href="#copyright" class="hover:text-rose-400 transition">Shield</a>
+        <a href="privacy.html" class="hover:text-cyan-400 transition">Privacy</a>
       </nav>
 
-      <!-- Quick Action Buttons -->
+      <!-- Quick Action Buttons & Mobile Toggle -->
       <div class="flex items-center gap-3">
         <a 
           href="https://github.com/karansankhwar09-tech/Alika-ai-releases/releases/download/v1.0.1/Alika.AI.Setup.exe" 
@@ -152,10 +120,46 @@
           class="px-5 py-2.5 rounded-xl text-xs font-black bg-cyan-400 hover:bg-cyan-300 text-slate-950 glow-btn transition-all duration-300 flex items-center gap-2"
         >
           <i data-lucide="download" class="w-4 h-4"></i>
-          <span>Get for Windows  (.exe)</span>
+          <span>Get for Windows</span>
         </a>
+        <!-- Accessible Mobile Menu Toggle Button (Visible on screens < 1024px) -->
+        <button 
+          id="mobileMenuBtn" 
+          type="button" 
+          aria-label="Toggle navigation menu" 
+          aria-expanded="false" 
+          class="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 border border-white/10 transition flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-cyan-400 shrink-0"
+        >
+          <i data-lucide="menu" id="menuOpenIcon" class="w-5 h-5"></i>
+          <i data-lucide="x" id="menuCloseIcon" class="w-5 h-5 hidden"></i>
+        </button>
       </div>
 
+    </div>
+
+    <!-- Responsive Mobile Nav Drawer with Close-on-Selection -->
+    <div id="mobileMenu" class="hidden lg:hidden border-b border-white/10 bg-slate-950/95 backdrop-blur-xl px-6 py-5 transition-all duration-200">
+      <nav class="flex flex-col gap-3 text-sm font-semibold text-slate-300">
+        <a href="#about" class="mobile-nav-link hover:text-cyan-400 transition py-1">About Alika</a>
+        <a href="#platforms" class="mobile-nav-link hover:text-cyan-400 transition py-1">Platforms</a>
+        <a href="#capabilities" class="mobile-nav-link hover:text-cyan-400 transition py-1">Capabilities</a>
+        <a href="#setup" class="mobile-nav-link hover:text-cyan-400 transition py-1">Setup Guide</a>
+        <a href="#feedback-section" class="mobile-nav-link hover:text-cyan-400 transition py-1">Community Hub</a>
+        <a href="https://github.com/karansankhwar09-tech/Alika-ai-releases/releases/download/v1.0.1/Alika.AI.Setup.exe" class="mobile-nav-link hover:text-cyan-400 transition py-1">Download (.exe)</a>
+        <a href="#copyright" class="mobile-nav-link hover:text-rose-400 transition py-1">Copyright Shield</a>
+        <a href="privacy.html" class="mobile-nav-link hover:text-cyan-400 transition py-1">Privacy Policy</a>
+        <div class="pt-3 mt-1 border-t border-white/10 flex flex-col gap-2">
+          <a 
+            href="https://github.com/karansankhwar09-tech/Alika-ai-releases/releases/download/v1.0.1/Alika.AI.Setup.exe" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="mobile-nav-link flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition"
+          >
+            <i data-lucide="github" class="w-4 h-4"></i>
+            <span>GitHub Releases</span>
+          </a>
+        </div>
+      </nav>
     </div>
   </header>
 
@@ -179,7 +183,7 @@
 
       <!-- Hinglish Hero Paragraph -->
       <p class="text-slate-400 text-base sm:text-xl max-w-3xl mx-auto mt-7 leading-relaxed font-normal">
-        Alika koi ordinary chatbot nahi haiâ€”yeh ek autonomous real-time voice aur vision companion hai. Natural voice me continuous baat kijiye, apni screen live share karke mushkil code ya maths solve karwaiye, aur zero-lag responses paiye.
+        Alika koi ordinary chatbot nahi hai—yeh ek autonomous real-time voice aur vision companion hai. Natural voice me continuous baat kijiye, apni screen live share karke mushkil code ya maths solve karwaiye, aur zero-lag responses paiye.
       </p>
 
      <!-- CTA Buttons -->
@@ -195,12 +199,12 @@
 
   <!-- Android Button -->
   <a 
-    href="assets/Alika-AI-v1.0.0.apk" 
+    href="#android-card" 
     id="android-download-link"
     class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold flex items-center justify-center gap-3 transition-all transform hover:-translate-y-1"
   >
     <i data-lucide="smartphone" class="w-5 h-5"></i>
-    <span>Download Alika AI for Android (.apk)</span>
+    <span>Android APK (In Development)</span>
   </a>
 
   <!-- Setup Guide Button -->
@@ -246,11 +250,14 @@
               muted 
               loop 
               playsinline 
-              poster="assets/step5.png"
+              poster="assets/step5.webp"
               class="w-full h-full object-cover opacity-95 transition duration-500"
             >
-              <source src="assets/alika-preview.mp4" type="video/mp4">
-              <img src="assets/step5.png" alt="Alika Workspace" class="w-full h-full object-cover">
+              <source src="assets/alika-preview-3.mp4" type="video/mp4">
+              <picture>
+                <source srcset="assets/step5.webp" type="image/webp">
+                <img src="assets/step5.png" alt="Alika Workspace" class="w-full h-full object-cover" width="1365" height="767" decoding="async">
+              </picture>
             </video>
 
             <!-- Bottom Live Waveform & Status Overlay -->
@@ -320,7 +327,7 @@
         </div>
 
         <!-- Android (WORK IN PROGRESS) -->
-        <div class="glass-card p-6 sm:p-7 rounded-3xl border border-amber-500/30 relative flex flex-col justify-between">
+        <div id="android-card" class="glass-card p-6 sm:p-7 rounded-3xl border border-amber-500/30 relative flex flex-col justify-between scroll-mt-24">
           <div>
             <div class="flex items-center justify-between mb-4">
               <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
@@ -510,7 +517,10 @@
             </p>
           </div>
           <div class="rounded-2xl border border-white/10 overflow-hidden bg-black shadow-lg">
-            <img src="assets/step1.png" alt="Google AI Studio Create API key" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            <picture>
+              <source srcset="assets/step1.webp" type="image/webp">
+              <img src="assets/step1.png" alt="Google AI Studio Create API key" loading="lazy" decoding="async" width="188" height="45" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            </picture>
           </div>
         </div>
 
@@ -524,7 +534,10 @@
             </p>
           </div>
           <div class="rounded-2xl border border-white/10 overflow-hidden bg-black shadow-lg">
-            <img src="assets/step2.png" alt="Generate API key popup" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            <picture>
+              <source srcset="assets/step2.webp" type="image/webp">
+              <img src="assets/step2.png" alt="Generate API key popup" loading="lazy" decoding="async" width="539" height="341" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            </picture>
           </div>
         </div>
 
@@ -538,7 +551,10 @@
             </p>
           </div>
           <div class="rounded-2xl border border-white/10 overflow-hidden bg-black shadow-lg">
-            <img src="assets/step3.png" alt="Alika Starting Splash Screen" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            <picture>
+              <source srcset="assets/step3.webp" type="image/webp">
+              <img src="assets/step3.png" alt="Alika Starting Splash Screen" loading="lazy" decoding="async" width="407" height="304" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            </picture>
           </div>
         </div>
 
@@ -552,7 +568,10 @@
             </p>
           </div>
           <div class="rounded-2xl border border-white/10 overflow-hidden bg-black shadow-lg">
-            <img src="assets/step4.png" alt="Enter Gemini API Key prompt" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            <picture>
+              <source srcset="assets/step4.webp" type="image/webp">
+              <img src="assets/step4.png" alt="Enter Gemini API Key prompt" loading="lazy" decoding="async" width="484" height="196" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            </picture>
           </div>
         </div>
 
@@ -566,7 +585,10 @@
             </p>
           </div>
           <div class="rounded-2xl border border-white/10 overflow-hidden bg-black shadow-lg">
-            <img src="assets/step5.png" alt="Alika Final Dashboard Screen" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            <picture>
+              <source srcset="assets/step5.webp" type="image/webp">
+              <img src="assets/step5.png" alt="Alika Final Dashboard Screen" loading="lazy" decoding="async" width="1365" height="767" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+            </picture>
           </div>
         </div>
 
@@ -602,11 +624,11 @@
   </a>
 
   <a 
-    href="#android-link" 
-    class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black text-lg glow-btn flex items-center justify-center gap-3 transition-all transform hover:scale-105"
+    href="#android-card" 
+    class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 text-amber-300 border border-amber-500/30 font-semibold text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
   >
-    <i data-lucide="smartphone" class="w-6 h-6"></i>
-    <span>Download for Android (.apk)</span>
+    <i data-lucide="smartphone" class="w-6 h-6 text-amber-400"></i>
+    <span>Android APK (In Development)</span>
   </a>
 </div>
         <div class="mt-8 text-xs font-mono text-slate-400 flex flex-wrap items-center justify-center gap-4 sm:gap-8">
@@ -661,345 +683,156 @@
       </div>
 
       <div class="flex items-center gap-6">
-        <a href="https://github.com/karansankhwar09-tech/Alika-ai-releases/releases/download/v1.0.1/Alika.AI.Setup.exe" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition flex items-center gap-1">
+        <a href="https://github.com/karansankhwar09-tech/alika-ai-web" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition flex items-center gap-1">
           <i data-lucide="github" class="w-4 h-4"></i> GitHub Hub
         </a>
+        <a href="privacy.html" class="hover:text-cyan-400 transition">Privacy Policy</a>
         <a href="#about" class="hover:text-cyan-400 transition">Features</a>
         <a href="#platforms" class="hover:text-cyan-400 transition">Roadmap</a>
-        <a href="#setup" class="hover:text-cyan-400 transition">Docs</a>
+        <a href="#setup" class="hover:text-cyan-400 transition">Setup Guide</a>
       </div>
 
     </div>
   </footer>
 
-  <!-- JAVASCRIPT LOGIC (ICONS + 3D TILT) -->
-  <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
-
-    // 3D Card Tilt Effect on Mouse Move
-    const tiltCard = document.getElementById('tiltCard');
-    if (tiltCard && window.innerWidth > 768) {
-      document.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const { innerWidth, innerHeight } = window;
-        
-        const xOffset = (clientX / innerWidth - 0.5) * 16;
-        const yOffset = (clientY / innerHeight - 0.5) * -16;
-
-        tiltCard.style.transform = `perspective(1000px) rotateX(${yOffset}deg) rotateY(${xOffset}deg)`;
-      });
-
-      document.addEventListener('mouseleave', () => {
-        tiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-      });
-    }
-  </script>
 <!-- ================= ALIKA COMMUNITY FEEDBACK HUB ================= -->
 <section id="feedback-section" class="feedback-container">
   <div class="feedback-header">
-    <div class="neon-badge">COMMUNITY INTEL</div>
+    <div class="neon-badge">COMMUNITY INTEL // DISCUSSIONS</div>
     <h2>Alika <span>Feedback & Query</span> Hub</h2>
-    <p>Share your bug reports, feature requests, or queries with the community.</p>
+    <p>Powered by GitHub Discussions. Share bug reports, feature requests, or discuss real-time companion features directly with the developer.</p>
   </div>
 
-  <div class="feedback-card new-post-box">
-    <div class="input-row">
-      <input type="text" id="fb-name" placeholder="Your Name or Alias" required />
-      <select id="fb-tag">
-        <option value="General">ðŸ’¬ General Feedback</option>
-        <option value="Bug">ðŸ› Bug Report</option>
-        <option value="Feature">âš¡ Feature Request</option>
-        <option value="Query">â“ Query / Help</option>
-      </select>
-    </div>
-    <textarea id="fb-content" rows="3" placeholder="Describe your experience, issue, or question in detail..."></textarea>
-    <div class="box-actions">
-      <span class="tech-hint">// Encrypted community transmission</span>
-      <button class="neon-btn" onclick="submitRootFeedback()">Transmitting Feedback</button>
-    </div>
+  <!-- Direct Community Category Actions -->
+  <div class="community-actions-grid">
+    <a href="https://github.com/karansankhwar09-tech/alika-ai-web/discussions" target="_blank" rel="noopener noreferrer" class="community-action-card">
+      <div class="action-icon">💬</div>
+      <div class="action-content">
+        <span class="action-title">General Feedback</span>
+        <span class="action-desc">Share feedback, thoughts, or talk with the community</span>
+      </div>
+      <span class="action-link">Open &rarr;</span>
+    </a>
+
+    <a href="https://github.com/karansankhwar09-tech/alika-ai-web/issues/new" target="_blank" rel="noopener noreferrer" class="community-action-card">
+      <div class="action-icon">🐛</div>
+      <div class="action-content">
+        <span class="action-title">Report a Bug</span>
+        <span class="action-desc">Encountered an issue? Submit repro steps & system details</span>
+      </div>
+      <span class="action-link">Open &rarr;</span>
+    </a>
+
+    <a href="https://github.com/karansankhwar09-tech/alika-ai-web/discussions" target="_blank" rel="noopener noreferrer" class="community-action-card">
+      <div class="action-icon">⚡</div>
+      <div class="action-content">
+        <span class="action-title">Feature Requests</span>
+        <span class="action-desc">Suggest new AI tools, desktop controls, or capabilities</span>
+      </div>
+      <span class="action-link">Open &rarr;</span>
+    </a>
+
+    <a href="https://github.com/karansankhwar09-tech/alika-ai-web/discussions" target="_blank" rel="noopener noreferrer" class="community-action-card">
+      <div class="action-icon">❓</div>
+      <div class="action-content">
+        <span class="action-title">Q&A & Assistance</span>
+        <span class="action-desc">Get setup help, API key advice, or usage tips</span>
+      </div>
+      <span class="action-link">Open &rarr;</span>
+    </a>
   </div>
 
-  <div class="feedback-toolbar">
-    <span id="total-threads">0 Feedbacks</span>
-    <div class="filters">
-      <button class="filter-btn active" onclick="filterComments('All')">All</button>
-      <button class="filter-btn" onclick="filterComments('Bug')">Bugs</button>
-      <button class="filter-btn" onclick="filterComments('Feature')">Features</button>
-      <button class="filter-btn" onclick="filterComments('Query')">Queries</button>
-    </div>
-  </div>
-
-  <div id="comments-tree" class="comments-list"></div>
-</section>
-
-<style>
-:root {
-  --fb-bg: #090d16;
-  --fb-card: rgba(16, 24, 40, 0.75);
-  --fb-border: rgba(0, 240, 255, 0.2);
-  --fb-neon: #00f0ff;
-  --fb-purple: #7928ca;
-  --fb-text: #e2e8f0;
-  --fb-muted: #64748b;
-}
-.feedback-container {
-  max-width: 950px;
-  margin: 60px auto;
-  padding: 24px;
-  background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.05), transparent 70%), var(--fb-bg);
-  border-radius: 20px;
-  color: var(--fb-text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.feedback-header { text-align: center; margin-bottom: 32px; }
-.neon-badge {
-  display: inline-block;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--fb-neon);
-  background: rgba(0, 240, 255, 0.1);
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1px solid var(--fb-neon);
-  margin-bottom: 8px;
-}
-.feedback-header h2 { font-size: 28px; margin: 8px 0; }
-.feedback-header h2 span { color: var(--fb-neon); text-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
-.feedback-header p { color: var(--fb-muted); font-size: 14px; }
-.feedback-card {
-  background: var(--fb-card);
-  border: 1px solid var(--fb-border);
-  backdrop-filter: blur(12px);
-  border-radius: 14px;
-  padding: 18px;
-  margin-bottom: 24px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-}
-.input-row { display: flex; gap: 12px; margin-bottom: 12px; }
-.input-row input, .input-row select, .feedback-container textarea {
-  background: rgba(10, 15, 28, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #fff;
-  padding: 10px 14px;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.2s ease;
-}
-.input-row input { flex: 1; }
-.input-row select { width: 180px; }
-.feedback-container textarea { width: 100%; box-sizing: border-box; resize: vertical; }
-.input-row input:focus, .input-row select:focus, .feedback-container textarea:focus {
-  border-color: var(--fb-neon);
-  box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
-}
-.box-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-.tech-hint { font-size: 12px; color: var(--fb-muted); font-family: monospace; }
-.neon-btn {
-  background: linear-gradient(135deg, #00f0ff, #7928ca);
-  border: none;
-  color: #fff;
-  padding: 8px 18px;
-  font-weight: 600;
-  font-size: 13px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.neon-btn:hover { opacity: 0.9; }
-.feedback-toolbar { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 16px; font-size: 13px; color: var(--fb-muted); }
-.filter-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--fb-muted);
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  cursor: pointer;
-  margin-left: 6px;
-}
-.filter-btn.active, .filter-btn:hover { border-color: var(--fb-neon); color: var(--fb-neon); }
-.comment-node { border-left: 2px solid rgba(0, 240, 255, 0.2); margin-left: 18px; padding-left: 16px; margin-top: 14px; }
-.root-comment {
-  border-left: none;
-  margin-left: 0;
-  padding-left: 0;
-  background: rgba(14, 21, 37, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.comment-meta { display: flex; align-items: center; gap: 10px; font-size: 13px; margin-bottom: 6px; }
-.user-tag { font-weight: bold; color: #fff; }
-.badge-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
-.badge-Bug { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
-.badge-Feature { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
-.badge-Query { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid #eab308; }
-.badge-General { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #a855f7; }
-.time-stamp { font-size: 11px; color: var(--fb-muted); }
-.comment-body { font-size: 14px; line-height: 1.5; color: #cbd5e1; margin-bottom: 10px; }
-.comment-controls { display: flex; gap: 16px; font-size: 12px; }
-.control-btn { background: none; border: none; color: var(--fb-muted); cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px; }
-.control-btn:hover { color: var(--fb-neon); }
-.reply-input-box { margin-top: 10px; padding: 10px; background: rgba(10, 15, 28, 0.9); border-radius: 8px; border: 1px solid var(--fb-border); }
-</style>
-
-<script>
-let feedbackData = JSON.parse(localStorage.getItem("alika_feedbacks")) || [];
-let activeFilter = "All";
-
-function saveAndRender() {
-  localStorage.setItem("alika_feedbacks", JSON.stringify(feedbackData));
-  renderComments();
-}
-
-function submitRootFeedback() {
-  const name = document.getElementById("fb-name").value.trim() || "User";
-  const tag = document.getElementById("fb-tag").value;
-  const content = document.getElementById("fb-content").value.trim();
-
-  if (!content) return alert("Please type your feedback before transmitting!");
-
-  const newPost = {
-    id: "fb_" + Date.now(),
-    name: name,
-    tag: tag,
-    content: content,
-    timestamp: new Date().toLocaleDateString() + " at " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-    upvotes: 0,
-    replies: []
-  };
-
-  feedbackData.unshift(newPost);
-  document.getElementById("fb-content").value = "";
-  saveAndRender();
-}
-
-function renderTree(item, isRoot = false) {
-  const node = document.createElement("div");
-  node.className = isRoot ? "root-comment" : "comment-node";
-  node.id = item.id;
-
-  node.innerHTML = `
-    <div class="comment-meta">
-      <span class="user-tag">${item.name}</span>
-      ${item.tag ? `<span class="badge-tag badge-${item.tag}">${item.tag}</span>` : ""}
-      <span class="time-stamp">${item.timestamp}</span>
-    </div>
-    <div class="comment-body">${escapeHTML(item.content)}</div>
-    <div class="comment-controls">
-      <button class="control-btn" onclick="upvote('${item.id}')">â–² <span>${item.upvotes}</span></button>
-      <button class="control-btn" onclick="toggleReplyBox('${item.id}')">ðŸ’¬ Reply</button>
-    </div>
-    <div id="reply-box-${item.id}" class="reply-input-box" style="display:none;">
-      <input type="text" id="reply-name-${item.id}" placeholder="Your Name" style="width: 130px; margin-bottom: 6px; font-size: 12px; padding: 4px 8px;"/>
-      <textarea id="reply-text-${item.id}" rows="2" placeholder="Write a direct response..." style="font-size: 13px;"></textarea>
-      <div style="text-align: right; margin-top: 6px;">
-        <button class="neon-btn" style="padding: 4px 10px; font-size: 12px;" onclick="addReply('${item.id}')">Send Reply</button>
+  <!-- Giscus Live Discussions Mount -->
+  <div id="giscus-wrapper" class="giscus-mount-card">
+    <div class="giscus-status-bar">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span id="giscus-status-text">GitHub Discussions Feed</span>
+      </div>
+      <div class="giscus-meta-links">
+        <a href="https://github.com/karansankhwar09-tech/alika-ai-web/discussions" target="_blank" rel="noopener noreferrer" class="github-thread-btn">
+          <span>View on GitHub</span>
+          <svg class="w-3.5 h-3.5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
       </div>
     </div>
-    <div class="replies-wrapper" id="replies-${item.id}"></div>
-  `;
 
-  const repliesWrapper = node.querySelector('#replies-' + item.id);
-  if (item.replies && item.replies.length > 0) {
-    item.replies.forEach(reply => {
-      repliesWrapper.appendChild(renderTree(reply, false));
-    });
-  }
+    <!-- Active Giscus Thread Container -->
+    <div id="giscus-thread" class="giscus giscus-frame-container">
+      <div id="giscus-placeholder" class="giscus-notice-box">
+        <div class="giscus-notice-icon">💬</div>
+        <h3 class="text-lg font-bold text-white mb-2">Live Discussions Integration</h3>
+        <p class="text-sm text-slate-300 mb-4 max-w-lg mx-auto leading-relaxed">
+          Community feedback is natively powered by GitHub Discussions for full transparency, real cross-device synchronization, and direct developer notifications.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="https://github.com/karansankhwar09-tech/alika-ai-web/discussions" target="_blank" rel="noopener noreferrer" class="neon-btn inline-flex items-center gap-2">
+            <span>Browse GitHub Discussions</span>
+            <span>&rarr;</span>
+          </a>
+          <button type="button" id="toggleMaintainerGuideBtn" class="filter-btn text-xs">
+            ⚙️ Maintainer Activation Guide
+          </button>
+        </div>
 
-  return node;
-}
+        <!-- Maintainer Activation Steps (Collapsible) -->
+        <div id="maintainerGuide" class="maintainer-guide-box hidden text-left max-w-lg mx-auto mt-4">
+          <h4 class="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider mb-2">// 3-Step Giscus Activation for @karansankhwar09-tech</h4>
+          <ol class="text-xs text-slate-300 space-y-2 list-decimal list-inside font-mono">
+            <li><strong>Enable Discussions:</strong> Open <a href="https://github.com/karansankhwar09-tech/alika-ai-web/settings" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">Repo Settings</a> &rarr; Features &rarr; check "Discussions".</li>
+            <li><strong>Install Giscus App:</strong> Grant access at <a href="https://github.com/apps/giscus" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">github.com/apps/giscus</a> to <code>alika-ai-web</code>.</li>
+            <li><strong>Insert IDs:</strong> Open <a href="https://giscus.app" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">giscus.app</a>, enter <code>karansankhwar09-tech/alika-ai-web</code>, copy <code>data-repo-id</code> and <code>data-category-id</code> into <code>GISCUS_CONFIG</code> in <code>js/feedback.js</code>.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
 
-function renderComments() {
-  const container = document.getElementById("comments-tree");
-  if (!container) return;
-  container.innerHTML = "";
+  <!-- Local Feedback Sandbox (Preserved for offline/local testing) -->
+  <div class="local-sandbox-toggle-row">
+    <button type="button" id="toggleLocalSandboxBtn" class="sandbox-toggle-btn" aria-expanded="false">
+      <span>🧪 Local Sandbox & Offline Feedback Mode</span>
+      <span id="sandboxToggleArrow">&darr;</span>
+    </button>
+  </div>
 
-  const filtered = activeFilter === "All" 
-    ? feedbackData 
-    : feedbackData.filter(i => i.tag === activeFilter);
+  <div id="localSandboxContainer" class="hidden">
+    <div class="feedback-card new-post-box">
+      <div class="input-row">
+        <label for="fb-name" class="sr-only">Your Name or Alias</label>
+        <input type="text" id="fb-name" placeholder="Your Name or Alias" aria-label="Your Name or Alias" required />
+        <label for="fb-tag" class="sr-only">Feedback Category</label>
+        <select id="fb-tag" aria-label="Feedback Category">
+          <option value="General">💬 General Feedback</option>
+          <option value="Bug">🐛 Bug Report</option>
+          <option value="Feature">⚡ Feature Request</option>
+          <option value="Query">❓ Query / Help</option>
+        </select>
+      </div>
+      <label for="fb-content" class="sr-only">Feedback Description</label>
+      <textarea id="fb-content" rows="3" placeholder="Describe your experience, issue, or question in detail..." aria-label="Feedback Description"></textarea>
+      <div class="box-actions">
+        <span class="tech-hint">// Encrypted community transmission (Local Sandbox)</span>
+        <button class="neon-btn" onclick="submitRootFeedback()">Transmitting Feedback</button>
+      </div>
+    </div>
 
-  document.getElementById("total-threads").innerText = filtered.length + " Feedback Threads";
+    <div class="feedback-toolbar">
+      <span id="total-threads">0 Feedbacks</span>
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterComments('All')">All</button>
+        <button class="filter-btn" onclick="filterComments('Bug')">Bugs</button>
+        <button class="filter-btn" onclick="filterComments('Feature')">Features</button>
+        <button class="filter-btn" onclick="filterComments('Query')">Queries</button>
+      </div>
+    </div>
 
-  filtered.forEach(item => {
-    container.appendChild(renderTree(item, true));
-  });
-}
+    <div id="comments-tree" class="comments-list"></div>
+  </div>
+</section>
 
-function toggleReplyBox(id) {
-  const box = document.getElementById('reply-box-' + id);
-  box.style.display = box.style.display === "none" ? "block" : "none";
-}
-
-function findAndAddReply(list, targetId, newReply) {
-  for (let item of list) {
-    if (item.id === targetId) {
-      item.replies.push(newReply);
-      return true;
-    }
-    if (item.replies && item.replies.length > 0) {
-      if (findAndAddReply(item.replies, targetId, newReply)) return true;
-    }
-  }
-  return false;
-}
-
-function addReply(parentId) {
-  const name = document.getElementById('reply-name-' + parentId).value.trim() || "Anonymous";
-  const text = document.getElementById('reply-text-' + parentId).value.trim();
-  if (!text) return;
-
-  const replyObj = {
-    id: "rep_" + Date.now(),
-    name: name,
-    content: text,
-    timestamp: new Date().toLocaleDateString() + " at " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-    upvotes: 0,
-    replies: []
-  };
-
-  findAndAddReply(feedbackData, parentId, replyObj);
-  saveAndRender();
-}
-
-function findAndUpvote(list, id) {
-  for (let item of list) {
-    if (item.id === id) {
-      item.upvotes++;
-      return true;
-    }
-    if (item.replies && findAndUpvote(item.replies, id)) return true;
-  }
-  return false;
-}
-
-function upvote(id) {
-  findAndUpvote(feedbackData, id);
-  saveAndRender();
-}
-
-function filterComments(tag) {
-  activeFilter = tag;
-  document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.innerText.includes(tag) || (tag === "All" && btn.innerText === "All"));
-  });
-  renderComments();
-}
-
-function escapeHTML(str) {
-  return str.replace(/[&<>'"]/g, tag => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-  }[tag] || tag));
-}
-
-renderComments();
-</script>
-<!-- ================= END FEEDBACK HUB ================= -->
-
-
+  <!-- Modular Scripts -->
+  <script src="js/main.js" defer></script>
+  <script src="js/feedback.js" defer></script>
 </body>
 </html>

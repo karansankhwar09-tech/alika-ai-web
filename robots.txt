@@ -1,0 +1,5 @@
+# robots.txt for https://alika-ai.vercel.app/
+User-agent: *
+Allow: /
+
+Sitemap: https://alika-ai.vercel.app/sitemap.xml
