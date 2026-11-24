@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.zoomable-img').forEach(img => {
       img.addEventListener('click', () => {
-        openLightbox(img.src, img.alt);
+        const resolvedSrc = img.getAttribute('data-full-src') || img.src || img.currentSrc;
+        openLightbox(resolvedSrc, img.alt);
       });
     });
 
@@ -143,41 +144,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Phase 2: Neural Orb State Controller (Lab Demo)
+  // 6. Phase 2: Neural Orb & Character Persona State Controller (Lab Demo)
   const orbStateBtns = document.querySelectorAll('.orb-state-btn');
   const interactiveNeuralOrb = document.getElementById('interactiveNeuralOrb');
   const orbStateDescription = document.getElementById('orbStateDescription');
   const orbStateBadge = document.getElementById('orbStateBadge');
+  const personaCharacterVideo = document.getElementById('personaCharacterVideo');
+  const personaVideoSource = document.getElementById('personaVideoSource');
+
+  const personaClips = {
+    idle: 'assets/idle.mp4',
+    listening: 'assets/listening.mp4',
+    thinking: 'assets/thinking.mp4',
+    speaking: 'assets/speaking.mp4',
+    seeing: 'assets/seeing.mp4',
+    acting: 'assets/acting.mp4'
+  };
 
   const orbStateData = {
     idle: {
       badge: 'State: Idle (Passive Baseline)',
-      desc: 'Minimal background power draw. Local hotkey listener (Alt + M) active and awaiting instructions.',
+      desc: 'Dedicated idle loop (assets/idle.mp4). Natural resting posture and breathing baseline. Minimal background power draw. Local hotkey listener (Alt + M) active.',
       color: 'text-cyan-400'
     },
     listening: {
       badge: 'State: Listening (Microphone Active)',
-      desc: 'Capturing streaming audio via WebSockets. Real-time Voice Activity Detection (VAD) monitors user speech.',
+      desc: 'Dedicated listening clip (assets/listening.mp4, trimmed 0.0s–2.8s from idle footage). Attentive expression and gaze. Real-time Voice Activity Detection (VAD) active.',
       color: 'text-emerald-400'
     },
     thinking: {
       badge: 'State: Thinking (Gemini Live Reasoning)',
-      desc: 'Multimodal neural inference running. Connecting speech tokens and screen context in real time.',
+      desc: 'Dedicated thinking footage (assets/thinking.mp4). Thoughtful, hand-to-chin gesture during multimodal inference. Connecting speech tokens and screen context.',
       color: 'text-indigo-400'
     },
     speaking: {
       badge: 'State: Speaking (Voice Synthesized)',
-      desc: 'Streaming natural voice audio packets directly to system audio buffer with interrupt capability.',
+      desc: 'Dedicated speaking clip (assets/speaking.mp4, from talking footage). Natural talking movement and gestures. Streaming low-latency voice packets with interrupt capability.',
       color: 'text-amber-400'
     },
     seeing: {
       badge: 'State: Seeing (Screen Vision Active)',
-      desc: 'Capturing in-memory desktop frame via Win32 MSS API (Alt + Q). Immediate volatile RAM processing.',
+      desc: 'Dedicated seeing clip (assets/seeing.mp4, trimmed 2.2s–5.0s from idle footage). Attentive observing gaze and subtle blink. Capturing desktop frames via Win32 MSS API (Alt + Q).',
       color: 'text-cyan-300'
     },
     acting: {
       badge: 'State: Acting (Windows System Automation)',
-      desc: 'Executing authorized system action via local FastAPI agent on port 8765 (brightness, volume, apps).',
+      desc: 'Dedicated acting clip (assets/acting.mp4, trimmed 1.5s–4.5s from talking footage). Expressive dynamic movement. Executing authorized local system actions via FastAPI agent (:8765).',
       color: 'text-rose-400'
     }
   };
@@ -198,6 +210,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (orbStateDescription) {
           orbStateDescription.textContent = orbStateData[targetState].desc;
+        }
+
+        if (personaCharacterVideo && personaVideoSource && personaClips[targetState]) {
+          const newSrc = personaClips[targetState];
+          const currentSrcAttr = personaVideoSource.getAttribute('src');
+          if (currentSrcAttr !== newSrc) {
+            personaCharacterVideo.classList.add('switching');
+            setTimeout(() => {
+              personaVideoSource.setAttribute('src', newSrc);
+              personaCharacterVideo.load();
+              personaCharacterVideo.play().catch(() => {});
+              personaCharacterVideo.classList.remove('switching');
+            }, 150);
+          }
         }
       });
     });

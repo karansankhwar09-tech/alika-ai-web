@@ -101,11 +101,11 @@ picture {
 
 .floating-nav {
   pointer-events: auto;
-  max-width: 76rem;
+  max-width: 86rem;
   margin: 0 auto;
   padding: 0.65rem 1.25rem;
   border-radius: 1.25rem;
-  background: rgba(6, 12, 29, 0.78);
+  background: rgba(6, 12, 29, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -169,6 +169,86 @@ picture {
     width: 110px;
     height: 110px;
   }
+}
+
+/* Character Portal & Real Model Display */
+.character-portal {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 
+    0 0 25px rgba(0, 217, 249, 0.45),
+    0 0 50px rgba(52, 245, 197, 0.25),
+    inset 0 0 15px rgba(3, 7, 18, 0.6);
+  border: 2px solid rgba(56, 189, 248, 0.45);
+  background: #090e1a;
+  z-index: 2;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .character-portal {
+    width: 145px;
+    height: 145px;
+  }
+}
+
+.character-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(2.3);
+  transform-origin: 50% 18%;
+  display: block;
+  transition: opacity 0.25s ease;
+}
+
+.character-video.switching {
+  opacity: 0.2;
+}
+
+.persona-state-overlay {
+  display: none !important;
+}
+
+/* State-reactive character portal styling */
+.neural-orb-wrapper[data-state="idle"] .character-portal {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+}
+.neural-orb-wrapper[data-state="listening"] .character-portal {
+  border-color: rgba(52, 211, 153, 0.8);
+  box-shadow: 0 0 35px rgba(52, 211, 153, 0.5);
+}
+.neural-orb-wrapper[data-state="listening"] .persona-state-overlay {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.15) 0%, transparent 70%);
+}
+.neural-orb-wrapper[data-state="thinking"] .character-portal {
+  border-color: rgba(129, 140, 248, 0.8);
+  box-shadow: 0 0 35px rgba(129, 140, 248, 0.5);
+}
+.neural-orb-wrapper[data-state="speaking"] .character-portal {
+  border-color: rgba(251, 191, 36, 0.8);
+  box-shadow: 0 0 35px rgba(251, 191, 36, 0.5);
+}
+.neural-orb-wrapper[data-state="speaking"] .persona-state-overlay {
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, transparent 70%);
+}
+.neural-orb-wrapper[data-state="seeing"] .character-portal {
+  border-color: rgba(56, 189, 248, 0.8);
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.5);
+}
+.neural-orb-wrapper[data-state="seeing"] .persona-state-overlay {
+  background: linear-gradient(180deg, transparent 0%, rgba(56, 189, 248, 0.2) 50%, transparent 100%);
+}
+.neural-orb-wrapper[data-state="acting"] .character-portal {
+  border-color: rgba(168, 85, 247, 0.8);
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.5);
+}
+.neural-orb-wrapper[data-state="acting"] .persona-state-overlay {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
 }
 
 /* Orbital Rings (Lightweight SVG/CSS) */
@@ -345,10 +425,11 @@ picture {
   position: fixed;
   inset: 0;
   z-index: 120;
-  background: rgba(4, 8, 20, 0.94);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(4, 8, 20, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
@@ -364,12 +445,17 @@ picture {
 
 .lightbox-content {
   position: relative;
-  max-width: 90vw;
-  max-height: 85vh;
+  max-width: 92vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-radius: 1.25rem;
   overflow: hidden;
-  border: 1px solid rgba(0, 217, 249, 0.35);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 217, 249, 0.2);
+  background: rgba(8, 14, 30, 0.95);
+  border: 1px solid rgba(0, 217, 249, 0.4);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 60px rgba(0, 217, 249, 0.25);
   transform: scale(0.95);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -380,23 +466,25 @@ picture {
 
 .lightbox-img {
   max-width: 100%;
-  max-height: 85vh;
+  max-height: calc(85vh - 55px);
+  width: auto;
+  height: auto;
   object-fit: contain;
   display: block;
+  user-select: none;
 }
 
 .lightbox-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   padding: 0.75rem 1.25rem;
-  background: rgba(4, 8, 20, 0.88);
-  backdrop-filter: blur(10px);
+  background: rgba(6, 11, 24, 0.98);
   color: #e2e8f0;
   font-size: 0.85rem;
   font-family: 'JetBrains Mono', monospace;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .lightbox-close-btn {
@@ -404,16 +492,17 @@ picture {
   top: 1rem;
   right: 1rem;
   z-index: 130;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(10, 20, 44, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 20, 44, 0.9);
+  border: 1px solid rgba(0, 217, 249, 0.5);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 217, 249, 0.2);
   transition: all 0.2s ease;
 }
 
@@ -866,8 +955,13 @@ picture {
   .arch-node-card:hover,
   .prereq-card:hover,
   .roadmap-col:hover,
-  .signal-channel-card:hover {
+  .signal-channel-card:hover,
+  .character-portal {
     transform: none !important;
+    transition: none !important;
+  }
+  .character-video {
+    animation: none !important;
   }
   .troubleshoot-icon {
     transition: none !important;
