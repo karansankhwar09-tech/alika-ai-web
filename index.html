@@ -117,7 +117,14 @@
       </nav>
 
       <!-- Quick Action Buttons & Mobile Toggle -->
-      <div class="flex items-center gap-2.5 shrink-0">
+      <div class="flex items-center gap-2 shrink-0">
+        <a 
+          href="#android-card" 
+          class="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/20 transition"
+        >
+          <i data-lucide="smartphone" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Android APK</span>
+        </a>
         <a 
           href="https://github.com/karansankhwar09-tech/Alika-ai-releases/releases/download/v1.0.4/Alika.AI.Setup.exe" 
           target="_blank" 
@@ -199,17 +206,38 @@
         <span class="text-amber-400 font-mono text-[11px] hidden sm:inline">&bull; Windows Voice &amp; Vision Companion</span>
       </div>
 
-      <!-- The Central ALIKA Character (Verified Model from idle.mp4) -->
-      <div class="neural-orb-wrapper hero-character-portal-wrapper" aria-label="ALIKA AI Companion Character">
-        <div class="orb-dawn-aura" aria-hidden="true"></div>
-        <div class="orb-orbital-ring-warm" aria-hidden="true"></div>
-        <div class="orb-orbital-ring" aria-hidden="true"></div>
-        <div class="character-portal" aria-label="ALIKA AI Character Portrait">
-          <video autoplay loop muted playsinline class="character-video" poster="assets/alika_character_portrait.webp" aria-label="ALIKA AI Companion Character Idle Loop">
-            <source src="assets/idle.mp4" type="video/mp4">
+      <!-- The Central ALIKA Character Model (Natural Standing Figure, No Rings, No Boxes) -->
+      <div id="heroCharacterStage" class="hero-character-stage mx-auto mb-6 relative flex flex-col items-center justify-center" aria-label="ALIKA AI Companion Character">
+        <div class="character-standing-frame relative overflow-hidden flex items-center justify-center">
+          <video 
+            id="heroCharacterVideo" 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="character-standing-video" 
+            poster="assets/alika_character_portrait.webp" 
+            aria-label="ALIKA AI Character Standing Figure"
+          >
+            <source id="heroVideoSource" src="assets/idle.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="orb-intellect-core sr-only" aria-label="ALIKA AI Neural Intelligence Core"></div>
+
+        <!-- State-Specific Character Animation Switcher (Idle, Listening, Thinking) -->
+        <div class="hero-state-toggle flex items-center gap-2 mt-3" aria-label="Hero Character State Switcher">
+          <button type="button" class="hero-state-tab active" data-hero-state="idle" aria-label="Switch to Idle state">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <span>Idle</span>
+          </button>
+          <button type="button" class="hero-state-tab" data-hero-state="listening" aria-label="Switch to Listening state">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>Listening</span>
+          </button>
+          <button type="button" class="hero-state-tab" data-hero-state="thinking" aria-label="Switch to Thinking state">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+            <span>Thinking</span>
+          </button>
+        </div>
       </div>
 
       <!-- Main Headline -->
@@ -229,30 +257,39 @@
         Gemini Live WebSockets se powered autonomous companion—natural voice conversation, live desktop screen awareness, aur private local memory.
       </p>
 
-      <!-- Prominent Windows Download and Product Exploration Actions -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+      <!-- Prominent Windows Download, Android APK and Product Exploration Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-8">
         <!-- Windows Download Button (Primary) -->
         <a 
           href="https://github.com/karansankhwar09-tech/Alika-ai-releases/releases/download/v1.0.4/Alika.AI.Setup.exe" 
-          class="w-full sm:w-auto px-8 py-4 rounded-2xl glow-btn flex items-center justify-center gap-3 transition-all transform hover:-translate-y-0.5"
+          class="w-full sm:w-auto px-7 py-3.5 rounded-2xl glow-btn flex items-center justify-center gap-2.5 transition-all transform hover:-translate-y-0.5"
         >
-          <i data-lucide="download" class="w-5 h-5"></i>
-          <span>Download ALIKA AI for Windows (.exe)</span>
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Download for Windows (.exe)</span>
         </a>
 
-        <!-- Explore Capabilities (Secondary) -->
+        <!-- Android APK Download Option (Secondary) -->
+        <a 
+          href="#android-card" 
+          class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold flex items-center justify-center gap-2 transition transform hover:-translate-y-0.5"
+        >
+          <i data-lucide="smartphone" class="w-4 h-4 text-amber-400"></i>
+          <span>Android APK Options</span>
+        </a>
+
+        <!-- Explore Capabilities (Tertiary) -->
         <a 
           href="#capabilities" 
-          class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white border border-white/10 font-bold flex items-center justify-center gap-2 transition transform hover:-translate-y-0.5"
+          class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-white border border-white/10 font-bold flex items-center justify-center gap-2 transition transform hover:-translate-y-0.5"
         >
           <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
-          <span>Explore Capabilities</span>
+          <span>Capabilities</span>
         </a>
 
-        <!-- 5-Minute Setup Guide (Tertiary) -->
+        <!-- 5-Minute Setup Guide -->
         <a 
           href="#setup" 
-          class="w-full sm:w-auto px-7 py-4 rounded-2xl warmth-btn font-bold flex items-center justify-center gap-2 transition transform hover:-translate-y-0.5"
+          class="w-full sm:w-auto px-6 py-3.5 rounded-2xl warmth-btn font-bold flex items-center justify-center gap-2 transition transform hover:-translate-y-0.5"
         >
           <i data-lucide="compass" class="w-4 h-4 text-amber-400"></i>
           <span>5-Minute Setup</span>
@@ -399,19 +436,14 @@
               <span id="orbStateBadge" class="font-mono text-xs font-bold text-cyan-400">State: Idle (Passive Baseline)</span>
             </div>
 
-            <!-- Central State-Reactive Persona Character Display -->
-            <div class="py-6 flex items-center justify-center">
-              <div id="interactiveNeuralOrb" class="neural-orb-wrapper persona-character-portal-wrapper" data-state="idle">
-                <div class="orb-dawn-aura" aria-hidden="true"></div>
-                <div class="orb-orbital-ring-warm" aria-hidden="true"></div>
-                <div class="orb-orbital-ring" aria-hidden="true"></div>
-                <div class="character-portal persona-portal" aria-label="Interactive ALIKA AI Character">
-                  <video id="personaCharacterVideo" autoplay loop muted playsinline class="character-video" poster="assets/alika_character_portrait.webp" aria-label="ALIKA AI Persona State Footage">
+            <!-- Central State-Reactive Persona Character Display (Natural Standing Figure, No Rings, No Boxes) -->
+            <div class="py-4 flex items-center justify-center">
+              <div id="interactiveNeuralOrb" class="hero-character-stage persona-character-stage" data-state="idle">
+                <div class="character-standing-frame persona-standing-frame relative overflow-hidden flex items-center justify-center">
+                  <video id="personaCharacterVideo" autoplay loop muted playsinline class="character-standing-video" poster="assets/alika_character_portrait.webp" aria-label="ALIKA AI Persona State Footage">
                     <source id="personaVideoSource" src="assets/idle.mp4" type="video/mp4">
                   </video>
-                  <div id="personaStateVisualOverlay" class="persona-state-overlay" aria-hidden="true"></div>
                 </div>
-                <div class="orb-intellect-core sr-only" aria-label="Interactive ALIKA AI Neural State Orb"></div>
               </div>
             </div>
 
@@ -636,26 +668,40 @@
           </div>
         </div>
 
-        <!-- Android (WORK IN PROGRESS) -->
-        <div id="android-card" class="glass-card p-6 sm:p-7 rounded-3xl border border-amber-500/30 relative flex flex-col justify-between scroll-mt-24">
+        <!-- Android APK Status & Release Intelligence -->
+        <div id="android-card" class="glass-card p-6 sm:p-7 rounded-3xl border border-amber-500/40 relative flex flex-col justify-between scroll-mt-24">
           <div>
             <div class="flex items-center justify-between mb-4">
               <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
                 <i data-lucide="smartphone" class="w-6 h-6"></i>
               </div>
               <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[11px] font-mono font-bold flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
-                Kaam Chal Raha Hai ⚙️
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                Official Android Pipeline
               </span>
             </div>
             <h3 class="text-xl font-bold text-white mb-1">ALIKA AI for Android APK</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-6">
-              Mobile background floating bubble, direct mic activation aur on-screen overlay ke sath Android version par active research &amp; development chal raha hai.
+            <p class="text-slate-300 text-xs leading-relaxed mb-4">
+              Mobile background floating bubble, direct mic activation aur on-screen visual overlay ke sath Android companion architecture active development me hai.
             </p>
+            <div class="space-y-1.5 text-[11px] font-mono text-slate-400 bg-black/40 p-3 rounded-xl border border-white/5 mb-5">
+              <div class="flex justify-between items-center">
+                <span>Application ID:</span>
+                <span class="text-slate-200">com.alika.android</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>Target Version:</span>
+                <span class="text-cyan-300">v1.0.4 Parity</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>Release Status:</span>
+                <span class="text-amber-300">Publishing to GitHub</span>
+              </div>
+            </div>
           </div>
-          <div class="p-3 rounded-xl bg-black/40 border border-amber-500/20 text-center">
-            <span class="text-xs font-mono text-amber-300 font-semibold">Under Active Development</span>
-            <span class="block text-[10px] text-slate-500 font-mono mt-0.5">Coming Soon on GitHub Releases</span>
+          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-center">
+            <span class="text-xs font-mono text-amber-300 font-semibold block">v1.0.4 Release Verification</span>
+            <span class="block text-[10px] text-slate-400 font-mono mt-1">Windows v1.0.4 GA live; verified production APK rolling out directly on GitHub Releases</span>
           </div>
         </div>
 
@@ -2070,7 +2116,7 @@
             class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 text-amber-300 border border-amber-500/30 font-semibold text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
           >
             <i data-lucide="smartphone" class="w-6 h-6 text-amber-400"></i>
-            <span>Android APK (In Development)</span>
+            <span>Android APK Options</span>
           </a>
         </div>
 

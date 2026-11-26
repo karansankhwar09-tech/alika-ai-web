@@ -229,6 +229,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Hero Character State Selector (Idle, Listening, Thinking)
+  const heroStateTabs = document.querySelectorAll('.hero-state-tab');
+  const heroCharacterVideo = document.getElementById('heroCharacterVideo');
+  const heroVideoSource = document.getElementById('heroVideoSource');
+
+  if (heroStateTabs.length > 0 && heroCharacterVideo && heroVideoSource) {
+    heroStateTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetState = tab.getAttribute('data-hero-state');
+        if (!targetState || !personaClips[targetState]) return;
+
+        heroStateTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const newSrc = personaClips[targetState];
+        const currentSrc = heroVideoSource.getAttribute('src');
+        if (currentSrc !== newSrc) {
+          heroCharacterVideo.classList.add('switching');
+          setTimeout(() => {
+            heroVideoSource.setAttribute('src', newSrc);
+            heroCharacterVideo.load();
+            heroCharacterVideo.play().catch(() => {});
+            heroCharacterVideo.classList.remove('switching');
+          }, 150);
+        }
+      });
+    });
+  }
+
   // 7. Phase 2: Interrupt-Me Interactive Simulation
   const interruptActionBtn = document.getElementById('interruptActionBtn');
   const interruptChatContainer = document.getElementById('interruptChatContainer');
